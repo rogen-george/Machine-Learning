@@ -69,14 +69,14 @@ z3 = a2 * Theta2';
 a3 = sigmoid(z3);
 h = a3;
 
-I = eye(num_labels);
-Y = zeros(m, num_labels);
+Identity = eye(num_labels);
+B = zeros(m, num_labels);
 for i=1:m
-  Y(i, :)= I(y(i), :);
+  B(i, :)= Identity(y(i), :);
 end
 
-p = sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2));
-J = sum(sum((-Y.*log(h)) - ((1-Y).*log(1-h))))/m + lambda*p/(2*m);
+values = sum( sum( Theta1(:,2:end) . ^2 ) ) + sum( sum( Theta2( :, 2:end) .^2));
+J = sum( sum( (-Y.*log(h) ) - ( (1-Y).*log(1-h)) ) )/ m + lambda * values / ( 2 * m);
 
 d3 = a3 - Y;
 d2 = ((d3*Theta2) .* sigmoidGradient([ones(size(z2, 1), 1) z2]))(:,2:end);
@@ -85,11 +85,11 @@ D2 = d3' * a2;
 D1 = d2' * a1;
 
 
-p1 = (lambda/m)*[zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
-p2 = (lambda/m)*[zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
+P1 = (lambda/m)*[zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+P2 = (lambda/m)*[zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
 
-Theta2_grad = (D2./m) + p2;
-Theta1_grad = (D1./m) + p1;
+Theta2_grad = (D2./m) + P2;
+Theta1_grad = (D1./m) + P1;
 
 
 % -------------------------------------------------------------
