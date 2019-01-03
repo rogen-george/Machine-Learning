@@ -101,3 +101,4 @@ grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
 
 end
+
