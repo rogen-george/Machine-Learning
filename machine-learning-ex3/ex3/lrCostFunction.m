@@ -53,4 +53,5 @@ grad = grad + ((lambda / m ) * theta_reg);
 
 grad = grad(:);
 
+
 end
